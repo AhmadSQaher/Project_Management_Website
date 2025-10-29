@@ -1,60 +1,18 @@
 import React, { useState } from 'react'
-import { useQuery, useMutation, gql } from '@apollo/client'
+import { useQuery, useMutation } from '@apollo/client'
 import { Form, Button, Row, Col, Card, Table, Spinner, Modal } from 'react-bootstrap'
-import { TEAMS, PROJECTS } from '../graphql/queries'
-
-const USERS = gql`query Users{ users { id username email role } }`;
-
-const REGISTER = gql`
-  mutation Register($input: CreateUserInput!){ 
-    register(input: $input){ 
-      id username email role 
-    } 
-  }
-`;
-
-const UPDATE_USER = gql`
-  mutation UpdateUser($id: ID!, $input: UpdateUserInput!){
-    updateUser(id: $id, input: $input){ id username email role }
-  }
-`;
-
-const DELETE_USER = gql`
-  mutation DeleteUser($id: ID!){ deleteUser(id: $id) }
-`;
-
-const CREATE_TEAM = gql`
-  mutation CreateTeam($input: CreateTeamInput!){ 
-    createTeam(input: $input){ 
-      id name 
-    } 
-  }
-`;
-
-const CREATE_PROJECT = gql`
-  mutation CreateProject($input: CreateProjectInput!){ 
-    createProject(input: $input){ 
-      id name 
-    } 
-  }
-`;
-
-const UPDATE_PROJECT_ASSIGN = gql`
-  mutation UpdateProjectAssign($id: ID!, $teamId: ID){
-    updateProject(id: $id, teamId: $teamId){ id name team { id name } }
-  }
-`;
-
-const DELETE_TEAM = gql`mutation DeleteTeam($id: ID!){ deleteTeam(id: $id) }`;
-const DELETE_PROJECT = gql`mutation DeleteProject($id: ID!){ deleteProject(id: $id) }`;
-
-const ASSIGN_MEMBER = gql`
-  mutation AddMember($teamId: ID!, $userId: ID!){ 
-    addMemberToTeam(teamId: $teamId, userId: $userId){ 
-      id name 
-    } 
-  }
-`;
+import { TEAMS, PROJECTS, USERS } from '../graphql/queries'
+import {
+  REGISTER,
+  UPDATE_USER,
+  DELETE_USER,
+  CREATE_TEAM,
+  CREATE_PROJECT,
+  UPDATE_PROJECT_ASSIGN,
+  ASSIGN_MEMBER,
+  DELETE_TEAM,
+  DELETE_PROJECT
+} from '../graphql/mutations'
 
 export default function AdminPanel(){
   const { data: udata, loading: uLoading, error: uError, refetch: refetchUsers } = useQuery(USERS, { fetchPolicy: 'no-cache' });

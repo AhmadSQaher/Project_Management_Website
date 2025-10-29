@@ -23,3 +23,7 @@ export const PROJECTS = gql`
     } 
   }
 `;
+
+export const USERS = gql`query Users{ users { id username email role } }`;
+
+export default { ME, TEAMS, PROJECTS, USERS }

@@ -1,20 +1,11 @@
 import React, { useState } from 'react'
-import { useQuery, useMutation, gql } from '@apollo/client'
+import { useQuery, useMutation } from '@apollo/client'
 import { ME } from '../graphql/queries'
+import { UPDATE_USER, DELETE_USER } from '../graphql/mutations'
 import { Card, Form, Button, Alert } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 
-const UPDATE_USER = gql`
-  mutation UpdateUser($id: ID!, $input: UpdateUserInput!){
-    updateUser(id: $id, input: $input){ id username email role }
-  }
-`
 
-const DELETE_USER = gql`
-  mutation DeleteUser($id: ID!){
-    deleteUser(id: $id)
-  }
-`
 
 export default function Profile(){
   const navigate = useNavigate()

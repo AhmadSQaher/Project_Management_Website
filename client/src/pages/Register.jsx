@@ -1,15 +1,9 @@
 import React, { useState } from 'react'
-import { useMutation, gql } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import { Form, Button, Alert, Card } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 
-const REGISTER = gql`
-  mutation Register($input: CreateUserInput!){ 
-    register(input: $input){ 
-      id username email role 
-    } 
-  }
-`;
+import { REGISTER } from '../graphql/mutations'
 
 export default function Register(){
   const navigate = useNavigate()

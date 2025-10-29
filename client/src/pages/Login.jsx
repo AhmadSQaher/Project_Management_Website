@@ -1,16 +1,8 @@
 import React, { useState } from 'react'
-import { useMutation, gql } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import { Form, Button, Alert, Card } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
-
-const LOGIN = gql`
-  mutation Login($email: String!, $password: String!){
-    login(email: $email, password: $password){
-      token
-      user { id username email role }
-    }
-  }
-`;
+import { LOGIN } from '../graphql/mutations'
 
 export default function Login(){
   const navigate = useNavigate()

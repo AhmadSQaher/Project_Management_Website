@@ -1,7 +1,5 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import typeDefs from './graphql/typeDefs'
-import resolvers from './graphql/resolvers'
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:4000/graphql',
@@ -22,9 +20,6 @@ const authLink = setContext((_, { headers }) => {
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
-  // Client-side schema extensions and local resolvers
-  typeDefs,
-  resolvers,
 });
 
 export default client;

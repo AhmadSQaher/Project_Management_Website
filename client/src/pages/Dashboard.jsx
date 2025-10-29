@@ -3,13 +3,7 @@ import { useQuery, useMutation, gql } from '@apollo/client'
 import { Card, Row, Col, Button, Spinner, Badge, Alert } from 'react-bootstrap'
 import { TEAMS, PROJECTS } from '../graphql/queries'
 
-const UPDATE_PROJECT_STATUS = gql`
-  mutation UpdateProjectStatus($id: ID!, $status: ProjectStatus!){ 
-    updateProjectStatus(id: $id, status: $status){ 
-      id status 
-    } 
-  }
-`;
+import { UPDATE_PROJECT_STATUS } from '../graphql/mutations'
 
 export default function Dashboard(){
   const { data: tdata, loading: tloading } = useQuery(TEAMS)
