@@ -7,7 +7,6 @@ const ProjectSchema = new Schema({
   team: { type: Schema.Types.ObjectId, ref: 'Team' },
   startDate: { type: Date },
   endDate: { type: Date },
-  // Use enum tokens compatible with GraphQL enum names
   status: { type: String, enum: ['IN_PROGRESS', 'COMPLETED', 'PENDING'], default: 'PENDING' },
 }, { timestamps: true });
 

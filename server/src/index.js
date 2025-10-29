@@ -24,7 +24,6 @@ async function start() {
     typeDefs,
     resolvers,
     context: ({ req, res }) => {
-      // Accept token from cookie OR from Authorization header (Bearer <token>)
       const cookieToken = req.cookies && req.cookies[COOKIE_NAME];
       let headerToken = null;
       const authHeader = req.headers && req.headers.authorization;
@@ -33,18 +32,6 @@ async function start() {
       }
       const token = cookieToken || headerToken;
       const user = token ? verifyToken(token) : null;
-
-      // Development debug logging to help trace auth issues
-      if (process.env.NODE_ENV !== 'production') {
-        try {
-          console.debug('[auth] cookieToken:', !!cookieToken, 'headerToken:', !!headerToken);
-          console.debug('[auth] authHeader:', authHeader);
-          console.debug('[auth] decoded user:', user);
-        } catch (err) {
-          // ignore logging errors
-        }
-      }
-
       return { req, res, user };
     }
   });
