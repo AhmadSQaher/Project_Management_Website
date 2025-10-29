@@ -228,7 +228,9 @@ const resolvers = {
     },
 
     deleteUser: async (_, { id }, { user }) => {
-      if (!user || user.role !== 'Admin') throw new Error('Unauthorized');
+      if (!user) throw new Error('Unauthorized');
+      // Allow admins to delete any user, and allow users to delete their own account
+      if (user.role !== 'Admin' && String(user.id) !== String(id)) throw new Error('Unauthorized');
       const deleted = await User.findByIdAndDelete(id);
       if (!deleted) throw new Error('Not found');
       // remove user from any teams

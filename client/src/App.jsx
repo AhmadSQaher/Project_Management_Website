@@ -6,6 +6,7 @@ import MainNav from './components/MainNav'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
+import Profile from './pages/Profile'
 import Dashboard from './pages/Dashboard'
 import AdminPanel from './pages/AdminPanel'
 import ProtectedRoute from './ProtectedRoute'
@@ -21,6 +22,7 @@ export default function App(){
             <Route path="/" element={<Home/>} />
             <Route path="/login" element={<Login/>} />
             <Route path="/register" element={<Register/>} />
+            <Route path="/me" element={<ProtectedRoute><Profile/></ProtectedRoute>} />
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard/></ProtectedRoute>} />
             <Route path="/admin" element={<ProtectedRoute requireAdmin={true}><AdminPanel/></ProtectedRoute>} />
           </Routes>

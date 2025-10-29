@@ -45,6 +45,9 @@ const UPDATE_PROJECT_ASSIGN = gql`
   }
 `;
 
+const DELETE_TEAM = gql`mutation DeleteTeam($id: ID!){ deleteTeam(id: $id) }`;
+const DELETE_PROJECT = gql`mutation DeleteProject($id: ID!){ deleteProject(id: $id) }`;
+
 const ASSIGN_MEMBER = gql`
   mutation AddMember($teamId: ID!, $userId: ID!){ 
     addMemberToTeam(teamId: $teamId, userId: $userId){ 
@@ -65,6 +68,8 @@ export default function AdminPanel(){
   const [updateUser] = useMutation(UPDATE_USER, { onCompleted: () => refetchUsers() });
   const [deleteUser] = useMutation(DELETE_USER, { onCompleted: () => refetchUsers() });
   const [updateProjectAssign] = useMutation(UPDATE_PROJECT_ASSIGN, { onCompleted: () => { refetchProjects(); refetchTeams(); } });
+  const [deleteTeam] = useMutation(DELETE_TEAM, { onCompleted: () => { refetchTeams(); refetchProjects(); } });
+  const [deleteProject] = useMutation(DELETE_PROJECT, { onCompleted: () => { refetchProjects(); refetchTeams(); } });
 
   const [userForm, setUserForm] = useState({ username: '', email: '', password: '', role: 'Member' })
   const [teamForm, setTeamForm] = useState({ name: '', description: '', slogan: '' })
@@ -98,7 +103,6 @@ export default function AdminPanel(){
     }
   }
 
-  // Edit user modal
   const [showEdit, setShowEdit] = useState(false)
   const [editingUser, setEditingUser] = useState(null)
   const [editForm, setEditForm] = useState({ username: '', email: '', password: '', role: 'Member' })
@@ -146,7 +150,6 @@ export default function AdminPanel(){
     }
   }
 
-  // Show spinner while any query is loading
   if (uLoading || tLoading || pLoading) return (
     <div className="d-flex justify-content-center mt-5">
       <Spinner animation="border" />
@@ -373,7 +376,8 @@ export default function AdminPanel(){
                   <thead>
                     <tr>
                       <th>Team Name</th>
-                      <th>Members</th>
+                        <th>Members</th>
+                        <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -381,6 +385,12 @@ export default function AdminPanel(){
                       <tr key={t.id}>
                         <td>{t.name}</td>
                         <td>{t.members.map(m => m.username).join(', ') || 'None'}</td>
+                        <td>
+                          <Button size="sm" variant="outline-danger" onClick={async ()=>{
+                            if (!window.confirm('Delete this team? This will unassign projects from the team.')) return
+                            try{ await deleteTeam({ variables: { id: t.id } }) }catch(err){ console.error(err) }
+                          }}>Delete</Button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -447,6 +457,7 @@ export default function AdminPanel(){
                       <th>Project Name</th>
                       <th>Team</th>
                       <th>Status</th>
+                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -457,6 +468,12 @@ export default function AdminPanel(){
                           <td>{p.name}</td>
                           <td>{p.team?.name || 'Unassigned'}</td>
                           <td>{label}</td>
+                          <td>
+                            <Button size="sm" variant="outline-danger" onClick={async ()=>{
+                              if (!window.confirm('Delete this project? This action cannot be undone.')) return
+                              try{ await deleteProject({ variables: { id: p.id } }) }catch(err){ console.error(err) }
+                            }}>Delete</Button>
+                          </td>
                         </tr>
                       )
                     })}

@@ -21,7 +21,6 @@ export default function Dashboard(){
       refetch()
     },
     onError: (e) => {
-      // show friendly error
       setError(e.message || 'Failed to update project status')
     }
   })
@@ -31,8 +30,6 @@ export default function Dashboard(){
       <Spinner animation="border" />
     </div>
   )
-
-  // Safely extract arrays from query results
   const teams = tdata?.teams || []
   const projects = pdata?.projects || []
 
@@ -105,7 +102,6 @@ export default function Dashboard(){
                             try{
                               await updateStatus({ variables: { id: p.id, status: 'IN_PROGRESS' } })
                             }catch(e){
-                              /* error handled by onError */
                             }
                           }}
                           disabled={updating}
@@ -119,7 +115,6 @@ export default function Dashboard(){
                             try{
                               await updateStatus({ variables: { id: p.id, status: 'COMPLETED' } })
                             }catch(e){
-                              /* error handled by onError */
                             }
                           }}
                           disabled={updating}

@@ -1,11 +1,12 @@
 import React from 'react'
 import { Navbar, Container, Nav, Button } from 'react-bootstrap'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
 import { ME } from '../graphql/queries'
 
 export default function MainNav(){
   const navigate = useNavigate()
+  const location = useLocation()
   const { data } = useQuery(ME)
 
   const handleLogout = async () => {
@@ -16,7 +17,6 @@ export default function MainNav(){
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: 'mutation { logout }' })
       })
-      // Also remove any locally stored auth token used for Authorization header
       try { localStorage.removeItem('authToken') } catch (e) { /* ignore */ }
       navigate('/login')
       window.location.reload()
@@ -28,9 +28,9 @@ export default function MainNav(){
   return (
     <Navbar expand="lg" className="mb-3" aria-label="Main navigation">
       <Container fluid>
-        <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
+          <Navbar.Brand as={Link} to={data?.me ? '/me' : '/'} className="d-flex align-items-center">
           <div style={{ width: 36, height: 36, background: 'var(--brand-red)', borderRadius: 6, marginRight: 8 }} aria-hidden="true" />
-          <div style={{ fontWeight: 700, color: 'var(--brand-white)' }}>Team Projects</div>
+          <div style={{ fontWeight: 700, color: 'var(--brand-white)' }}>{data?.me ? 'Profile' : 'Team Projects'}</div>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="main-nav" />
         <Navbar.Collapse id="main-nav">
@@ -45,7 +45,12 @@ export default function MainNav(){
                 <Button variant="outline-light" size="sm" onClick={handleLogout}>Logout</Button>
               </>
             ) : (
-              <Button as={Link} to="/login" variant="primary" size="sm">Login</Button>
+              <div className="d-flex align-items-center">
+                <Button as={Link} to="/login" variant="primary" size="sm">Login</Button>
+                {(location.pathname === '/' || location.pathname === '/login') && (
+                  <Button as={Link} to="/register" variant="outline-light" size="sm" className="ms-2">Register</Button>
+                )}
+              </div>
             )}
           </Nav>
         </Navbar.Collapse>

@@ -18,8 +18,8 @@ export default function Home(){
         <div className="col-md-8 offset-md-2">
           <div className="card team-card p-3">
             <div className="card-body">
-              <h4 className="card-title">Simple & Focused</h4>
-              <p className="muted-small">A lightweight project management interface for small teams and classroom projects. Designed for clarity and speed.</p>
+              <h4 className="card-title">Breakdown</h4>
+              <p className="muted-small">Backend (Apollo Server + Express + MongoDB) & Frontend (React + Vite + Apollo Client)</p>
             </div>
           </div>
         </div>

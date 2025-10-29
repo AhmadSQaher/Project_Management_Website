@@ -24,7 +24,6 @@ export default function Login(){
     try{
       setError(null)
       const result = await login({ variables: { email, password } })
-      // Persist token so subsequent requests can use Authorization header
       const token = result?.data?.login?.token;
       if (token) localStorage.setItem('authToken', token);
       navigate('/dashboard')
@@ -66,7 +65,7 @@ export default function Login(){
             </Button>
           </Form>
           <div className="mt-3 text-muted text-center">
-            <small>Initial admin: admin@example.com / password</small>
+            <small>First time here? Register first.</small>
           </div>
         </Card.Body>
       </Card>
