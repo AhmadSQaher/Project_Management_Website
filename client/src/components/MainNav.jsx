@@ -26,9 +26,12 @@ export default function MainNav(){
   }
 
   return (
-    <Navbar bg="light" expand="lg" className="mb-3" aria-label="Main navigation">
-      <Container>
-        <Navbar.Brand as={Link} to="/">Team Projects</Navbar.Brand>
+    <Navbar expand="lg" className="mb-3" aria-label="Main navigation">
+      <Container fluid>
+        <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
+          <div style={{ width: 36, height: 36, background: 'var(--brand-red)', borderRadius: 6, marginRight: 8 }} aria-hidden="true" />
+          <div style={{ fontWeight: 700, color: 'var(--brand-white)' }}>Team Projects</div>
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="main-nav" />
         <Navbar.Collapse id="main-nav">
           <Nav className="me-auto">
@@ -38,8 +41,8 @@ export default function MainNav(){
           <Nav>
             {data?.me ? (
               <>
-                <Navbar.Text className="me-2">Signed in as: <strong>{data.me.username}</strong> ({data.me.role})</Navbar.Text>
-                <Button variant="outline-secondary" size="sm" onClick={handleLogout}>Logout</Button>
+                <Navbar.Text className="me-2 text-white">Signed in as: <strong>{data.me.username}</strong> <span className="text-muted">({data.me.role})</span></Navbar.Text>
+                <Button variant="outline-light" size="sm" onClick={handleLogout}>Logout</Button>
               </>
             ) : (
               <Button as={Link} to="/login" variant="primary" size="sm">Login</Button>

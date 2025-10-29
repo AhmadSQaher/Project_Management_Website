@@ -1,0 +1,184 @@
+:root{
+  --brand-red: #c92a2a;
+  --brand-black: #0b0b0b; /* page background */
+  --brand-white: #ffffff;
+  --muted-gray: #9aa0a6;
+  --card-bg: #0f0f0f;
+}
+
+/* Page background and base text (dark theme) */
+body{
+  background: var(--brand-black);
+  color: var(--brand-white);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+/* Navbar: red background */
+.navbar{
+  background: var(--brand-red) !important;
+}
+.navbar .navbar-brand, .navbar .nav-link, .navbar .navbar-text{
+  color: var(--brand-white) !important;
+}
+.navbar .nav-link:hover{
+  color: rgba(255,255,255,0.9) !important;
+}
+
+/* Cards */
+.card{
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+  background: var(--card-bg);
+}
+.card .card-title{
+  color: var(--brand-white);
+}
+
+/* Buttons */
+.btn-primary{
+  background: var(--brand-red) !important;
+  border-color: var(--brand-red) !important;
+  color: var(--brand-white) !important;
+}
+.btn-primary:hover, .btn-primary:focus{
+  background: #a92222 !important;
+  border-color: #a92222 !important;
+}
+.btn-outline-primary{
+  color: var(--brand-red) !important;
+  border-color: var(--brand-red) !important;
+}
+.btn-outline-primary:hover{
+  background: rgba(201,42,42,0.08) !important;
+}
+.btn-success, .badge-success{
+  background: #222 !important;
+  border-color: #222 !important;
+  color: var(--brand-white) !important;
+}
+
+/* Badges */
+.badge{
+  font-weight: 600;
+  color: var(--brand-white);
+}
+.badge.bg-secondary{
+  background: #2b2f33 !important;
+}
+.badge.bg-primary{
+  background: var(--brand-red) !important;
+}
+
+/* Alerts */
+.alert-danger{
+  background: #3b0b0b;
+  color: #ffd6d6;
+  border-color: rgba(255,0,0,0.08);
+}
+
+/* Headings */
+h1,h2,h3,h4{
+  color: var(--brand-white);
+}
+
+/* Forms */
+.form-control{
+  background: #111;
+  color: var(--brand-white);
+  border: 1px solid rgba(255,255,255,0.04);
+}
+.form-control:focus{
+  border-color: var(--brand-red) !important;
+  box-shadow: 0 0 0 0.15rem rgba(201,42,42,0.15) !important;
+}
+
+/* Footer / small text */
+.text-muted{
+  color: var(--muted-gray) !important;
+}
+
+/* Make links use brand red */
+a{
+  color: var(--brand-red);
+}
+a:hover{ color: #ff7b7b }
+
+/* Container padding tweaks for nicer spacing */
+.container{
+  padding-top: 1.5rem;
+  padding-bottom: 2.5rem;
+}
+
+/* Hero */
+.hero{
+  background: linear-gradient(90deg, rgba(201,42,42,0.04), rgba(0,0,0,0.22));
+  border-radius: 10px;
+  padding: 3rem 2rem;
+  margin: 1.5rem 0 2rem;
+  text-align: center;
+}
+.hero h1{ font-size: 2.25rem; margin-bottom: 0.5rem }
+.hero p.lead{ font-size: 1.05rem; color: #444 }
+
+/* Cards variants for teams/projects */
+.team-card, .project-card{
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.team-card:hover, .project-card:hover{ transform: translateY(-4px); box-shadow: 0 14px 36px rgba(0,0,0,0.75) }
+
+.card-body .muted-small{ color: var(--muted-gray); font-size: .95rem }
+
+/* Project card action area */
+.project-actions{ display:flex; gap:.6rem; align-items:center; margin-top:1rem }
+
+/* Make badges pill-like */
+.badge{ border-radius: 999px }
+
+/* Footer spacing for nav */
+/* Make highlighted text in the navbar visible on the red background */
+.navbar .navbar-text strong{ color: var(--brand-white) !important }
+
+/* Make dropdowns, menus and other panels dark */
+.dropdown-menu, .dropdown-item{
+  background: var(--card-bg) !important;
+  color: var(--brand-white) !important;
+}
+
+/* Tables: make fully dark so admin lists don't show white panels */
+.table{
+  background: transparent !important;
+  color: var(--brand-white) !important;
+}
+.table thead th{
+  background: rgba(255,255,255,0.04) !important;
+  color: var(--brand-white) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+}
+.table tbody td{
+  background: transparent !important;
+  color: var(--brand-white) !important;
+  border-top: 1px solid rgba(255,255,255,0.03) !important;
+}
+.table-striped>tbody>tr:nth-of-type(odd){
+  background: rgba(255,255,255,0.01) !important;
+}
+
+/* Make card bodies fully black to match the page */
+.card, .card-body{
+  background: var(--card-bg) !important;
+  color: var(--brand-white) !important;
+}
+
+/* Inputs and selects full-width dark */
+.form-control, .form-select, textarea{
+  background: #0b0b0b !important;
+  color: var(--brand-white) !important;
+  border: 1px solid rgba(255,255,255,0.04) !important;
+}
+
+/* Ensure small muted text remains readable on dark background */
+.muted-small, .text-muted{ color: var(--muted-gray) !important }
+
+

@@ -45,11 +45,11 @@ export default function Dashboard(){
         <Row>
           {teams.map(t => (
             <Col key={t.id} md={4} className="mb-3">
-              <Card>
+              <Card className="team-card">
                 <Card.Body>
-                  <Card.Title>{t.name}</Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">{t.slogan || 'No slogan'}</Card.Subtitle>
-                  <Card.Text>{t.description}</Card.Text>
+                  <Card.Title className="mb-1">{t.name}</Card.Title>
+                  <Card.Subtitle className="mb-2 muted-small">{t.slogan || 'No slogan'}</Card.Subtitle>
+                  <Card.Text className="muted-small">{t.description}</Card.Text>
                   <div>
                     <strong>Members:</strong>
                     {t.members.length === 0 ? (
@@ -77,13 +77,13 @@ export default function Dashboard(){
         <Row>
           {projects.map(p => (
             <Col key={p.id} md={6} className="mb-3">
-              <Card>
+              <Card className="project-card">
                 <Card.Body>
                   <Card.Title>{p.name}</Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">
-                    Team: {p.team?.name || 'Unassigned'}
+                  <Card.Subtitle className="mb-2 muted-small">
+                    Team: <strong>{p.team?.name || 'Unassigned'}</strong>
                   </Card.Subtitle>
-                  <Card.Text>{p.description}</Card.Text>
+                  <Card.Text className="muted-small">{p.description}</Card.Text>
                   <div>
                     <strong>Status:</strong>{' '}
                     {(() => {
@@ -94,7 +94,7 @@ export default function Dashboard(){
                       )
                     })()}
                   </div>
-                  <div className="mt-3">
+                  <div className="project-actions">
                     {error && <Alert variant="danger">{error}</Alert>}
                     {p.status !== 'COMPLETED' && (
                       <>
@@ -111,7 +111,7 @@ export default function Dashboard(){
                           disabled={updating}
                         >
                           {updating ? 'Updating...' : 'Mark In Progress'}
-                        </Button>{' '}
+                        </Button>
                         <Button 
                           size="sm" 
                           variant="success"
